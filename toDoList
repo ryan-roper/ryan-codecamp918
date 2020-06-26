@@ -1,3 +1,69 @@
+//CSS
+body {
+ text-align: center;
+ color: lightseagreen;
+ font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+h1 {
+  font-family: Lobster, serif;
+  font-size: 60px;
+  text-decoration: underline;
+  margin-bottom: 1.2rem;
+}
+
+.app {
+  width: 30vw;
+  margin: 0 auto;
+  padding: 20px
+}
+
+.input {
+  width: 60%;
+  border: 1px solid hotpink;  
+  font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+input[type="button"] {
+  width: 30%;
+  margin: 0;
+  color: hotpink;
+  background-color: white;
+  border: 1px solid hotpink;
+  font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+li.checked {
+  color: lightseagreen;
+  text-decoration: line-through;
+}
+
+li:hover {
+  background: #ddd;
+}
+
+span{
+  color: lightseagreen;
+  float: right;
+}
+
+.removed {
+  display: none;
+}
+
+
+//HTML
+
 <html>
 <head>
   <title>To Do List</title>
@@ -19,3 +85,43 @@
   </div>
 </body>
 </html>
+
+//JS
+function addToDo() {
+  var toDo = document.getElementById("txt-todo").value
+  if (catchFBomb(toDo)) return;
+   toDo = "<li onclick='removeToDo(this)'>" + toDo + '<span onclick="removeItem(this.parentElement)">x</span>' + "</li>"
+  
+  var list = document.getElementById("todo-list").innerHTML
+
+  var html = list + toDo
+  document.getElementById("todo-list").innerHTML = html  
+  resetTextBox()
+}
+
+function resetTextBox() {
+  document.getElementById("txt-todo").value = ""  
+}
+
+function catchFBomb(word){
+  if (word.toLowerCase() === "fudge") {
+    alert("Hey, you can't add " + word.toUpperCase() + " to the list!" )
+    resetTextBox()
+    return true
+  } 
+  return false;
+}
+
+
+function removeToDo(elem) {
+  //elem.classList.add("checked");
+  if (elem.classList.contains("checked")) {
+    elem.classList.remove("checked");
+  } else {
+  elem.classList.add("checked");
+ } 
+}
+
+function removeItem(item) {
+    item.classList.add("removed");
+}
